@@ -1,6 +1,3 @@
-require_relative 'rect'
-require_relative 'vec2d'
-
 class Laser
   def initialize(pos)
     @pos = pos

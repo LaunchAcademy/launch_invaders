@@ -1,6 +1,3 @@
-require_relative 'player'
-require_relative 'invader'
-
 class World
   attr_reader :invaders, :player, :lasers
 

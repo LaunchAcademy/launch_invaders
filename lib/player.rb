@@ -1,7 +1,3 @@
-require_relative 'laser'
-require_relative 'vec2d'
-require_relative 'rect'
-
 class Player
   def initialize(width, height)
     starting_x = (width - size.x) / 2

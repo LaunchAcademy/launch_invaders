@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
+
 require 'gosu'
-require_relative 'world'
+
+Dir[File.join(File.dirname(__FILE__), 'lib', '*.rb')].each do |file|
+  require file
+end
 
 class LaunchInvaders < Gosu::Window
   SCREEN_WIDTH = 640
