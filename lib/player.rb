@@ -1,5 +1,5 @@
 class Player
-  attr_reader :moving, :pos
+  attr_reader :moving, :pos, :top_speed
 
   def initialize(width, height)
     starting_x = (width - size.x) / 2.0
@@ -29,9 +29,9 @@ class Player
   def start_moving(direction)
     case direction
     when :left
-      moving[:left] = -@top_speed
+      moving[:left] = -top_speed
     when :right
-      moving[:right] = @top_speed
+      moving[:right] = top_speed
     end
   end
 
@@ -40,6 +40,6 @@ class Player
   end
 
   def fire_laser
-    Laser.new(pos)
-  end
+    Laser.new(Vec2D.new(pos.x + (size.x - Laser::SIZE.x) / 2.0, pos.y))
+   end
 end

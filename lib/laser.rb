@@ -1,11 +1,15 @@
+require_relative 'vec2d'
+
 class Laser
+  SIZE = Vec2D.new(4.0, 8.0)
+
   def initialize(pos)
     @pos = pos
     @destroyed = false
   end
 
   def size
-    Vec2D.new(4, 8)
+    SIZE
   end
 
   def bounds
