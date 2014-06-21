@@ -7,49 +7,52 @@ Dir[File.join(File.dirname(__FILE__), 'lib', '*.rb')].each do |file|
 end
 
 class LaunchInvaders < Gosu::Window
-  SCREEN_WIDTH = 640
-  SCREEN_HEIGHT = 480
+  SCREEN_WIDTH = 1280
+  SCREEN_HEIGHT = 720
+  INVADER_COUNT = 10
+
+  attr_reader :world
 
   def initialize
     super(SCREEN_WIDTH, SCREEN_HEIGHT, false)
     self.caption = 'Launch Invaders'
 
-    @world = World.new(SCREEN_WIDTH, SCREEN_HEIGHT, 10)
+    @world = World.new(SCREEN_WIDTH, SCREEN_HEIGHT, INVADER_COUNT)
   end
 
   def update
-    @world.update
+    world.update
   end
 
   def draw
-    @world.invaders.each do |invader|
+    world.invaders.each do |invader|
       draw_rect(invader.bounds, Gosu::Color::WHITE)
     end
 
-    @world.lasers.each do |laser|
+    world.lasers.each do |laser|
       draw_rect(laser.bounds, Gosu::Color::RED)
     end
 
-    draw_rect(@world.player.bounds, Gosu::Color::BLUE)
+    draw_rect(world.player.bounds, Gosu::Color::BLUE)
   end
 
   def button_down(id)
     case id
     when Gosu::KbLeft
-      @world.player_accelerate(:left)
+      world.start_moving_player(:left)
     when Gosu::KbRight
-      @world.player_accelerate(:right)
+      world.start_moving_player(:right)
     when Gosu::KbSpace
-      @world.player_fire_laser
+      world.player_fire_laser
     end
   end
 
   def button_up(id)
     case id
     when Gosu::KbLeft
-      @world.player_decelerate(:left)
+      world.stop_moving_player(:left)
     when Gosu::KbRight
-      @world.player_decelerate(:right)
+      world.stop_moving_player(:right)
     end
   end
 

@@ -1,48 +1,45 @@
 class Player
+  attr_reader :moving, :pos
+
   def initialize(width, height)
-    starting_x = (width - size.x) / 2
-    starting_y = 9 * height / 10
+    starting_x = (width - size.x) / 2.0
+    starting_y = 9.0 * height / 10.0
 
     @pos = Vec2D.new(starting_x, starting_y)
-    @accel_left = 0
-    @accel_right = 0
+    @moving = { left: 0.0, right: 0.0 }
+    @top_speed = width / 100.0
   end
 
   def size
-    Vec2D.new(20, 20)
+    Vec2D.new(20.0, 20.0)
   end
 
   def vel
-    Vec2D.new(@accel_left + @accel_right, 0)
+    Vec2D.new(moving[:left] + moving[:right], 0)
   end
 
   def bounds
-    Rect.new(@pos, size)
+    Rect.new(pos, size)
   end
 
   def move
-    @pos = @pos.add(vel)
+    @pos = pos.add(vel)
   end
 
-  def accelerate(direction)
+  def start_moving(direction)
     case direction
     when :left
-      @accel_left = -1
+      moving[:left] = -@top_speed
     when :right
-      @accel_right = 1
+      moving[:right] = @top_speed
     end
   end
 
-  def decelerate(direction)
-    case direction
-    when :left
-      @accel_left = 0
-    when :right
-      @accel_right = 0
-    end
+  def stop_moving(direction)
+    moving[direction] = 0
   end
 
   def fire_laser
-    Laser.new(@pos)
+    Laser.new(pos)
   end
 end

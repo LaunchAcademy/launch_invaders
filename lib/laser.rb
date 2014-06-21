@@ -20,7 +20,7 @@ class Laser
     @pos = @pos.add(vel)
   end
 
-  def destroy
+  def destroy!
     @destroyed = true
   end
 
