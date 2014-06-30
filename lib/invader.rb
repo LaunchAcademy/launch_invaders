@@ -27,4 +27,8 @@ class Invader
   def destroyed?
     @destroyed
   end
+
+  def color
+    Gosu::Color::GREEN
+  end
 end

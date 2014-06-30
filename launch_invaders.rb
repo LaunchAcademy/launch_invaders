@@ -26,7 +26,7 @@ class LaunchInvaders < Gosu::Window
 
   def draw
     world.invaders.each do |invader|
-      draw_rect(invader.bounds, Gosu::Color::WHITE)
+      draw_rect(invader.bounds, invader.color)
     end
 
     world.lasers.each do |laser|
