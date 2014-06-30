@@ -14,4 +14,8 @@ class SpeedyInvader < Invader
     @vel = vel.add(accel)
     @pos = pos.add(vel)
   end
+
+  def color
+    Gosu::Color::AQUA
+  end
 end

@@ -1,4 +1,3 @@
-
 require_relative 'invader'
 
 class ZigZagInvader < Invader
@@ -25,6 +24,10 @@ class ZigZagInvader < Invader
       @accel = Vec2D.new(-accel.x, accel.y)
       @ticks = 0
     end
+  end
+
+  def color
+    Gosu::Color::FUCHSIA
   end
 
 end
