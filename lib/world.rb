@@ -27,7 +27,7 @@ class World
     @spawn_delay -= 1
 
     if next_invader_ready?
-      spawn_new_invader()
+      spawn_new_invader!
     end
 
     invaders.each do |invader|
@@ -66,8 +66,8 @@ class World
     lasers << player.fire_laser
   end
 
-  def spawn_new_invader
-    invader_type = [Invader].sample
+  def spawn_new_invader!
+    invader_type = [Invader, SpeedyInvader, ZigZagInvader].sample
     max_x = width - invader_type.size.x
     invaders << invader_type.new(rand(max_x), 0.0)
     @spawn_delay = rand(100)
