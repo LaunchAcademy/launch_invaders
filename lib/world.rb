@@ -1,7 +1,11 @@
 class World
+
+  MAX_SPAWN_DELAY = 100
+
   attr_reader :width, :height
   attr_reader :invaders, :player, :lasers
   attr_reader :invaders_remaining, :spawn_delay
+
 
   def initialize(width, height, invader_count)
     @width = width
@@ -15,8 +19,16 @@ class World
     @lasers = []
   end
 
+  def next_invader_ready?
+    invaders_remaining > 0 && spawn_delay <= 0
+  end
+
   def update
-    spawn_invaders()
+    @spawn_delay -= 1
+
+    if next_invader_ready?
+      spawn_new_invader()
+    end
 
     invaders.each do |invader|
       invader.update(self)
@@ -54,17 +66,11 @@ class World
     lasers << player.fire_laser
   end
 
-  def spawn_invaders
-    if invaders_remaining > 0
-      if spawn_delay <= 0
-        invader_type = [SimpleInvader, AcceleratingInvader].sample
-        invaders << invader_type.new(width)
-        @spawn_delay = rand(100)
-        @invaders_remaining -= 1
-      else
-        @spawn_delay -= 1
-      end
-    end
+  def spawn_new_invader
+    invader_type = [Invader].sample
+    max_x = width - invader_type.size.x
+    invaders << invader_type.new(rand(max_x), 0.0)
+    @spawn_delay = rand(100)
   end
 
 end

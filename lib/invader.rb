@@ -1,9 +1,6 @@
 class Invader
-  def initialize(max_width)
-    max_starting_x = max_width - size.x
-    starting_x = rand(max_starting_x)
-
-    @pos = Vec2D.new(starting_x, 20)
+  def initialize(x, y)
+    @pos = Vec2D.new(x, y)
     @destroyed = false
   end
 
@@ -11,12 +8,12 @@ class Invader
     @pos = @pos.add(vel)
   end
 
-  def size
+  def self.size
     Vec2D.new(20, 20)
   end
 
   def bounds
-    Rect.new(@pos, size)
+    Rect.new(@pos, Invader.size)
   end
 
   def vel
