@@ -1,4 +1,7 @@
 class Invader
+
+  attr_reader :pos
+
   def initialize(x, y)
     @pos = Vec2D.new(x, y)
     @destroyed = false
@@ -10,6 +13,10 @@ class Invader
 
   def self.size
     Vec2D.new(20, 20)
+  end
+
+  def size
+    Invader.size
   end
 
   def bounds

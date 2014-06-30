@@ -67,7 +67,7 @@ class World
   end
 
   def spawn_new_invader!
-    invader_type = [Invader, SpeedyInvader, ZigZagInvader].sample
+    invader_type = [Invader, SpeedyInvader, ZigZagInvader, ElusiveInvader].sample
     max_x = width - invader_type.size.x
     invaders << invader_type.new(rand(max_x), 0.0)
     @spawn_delay = rand(100)
