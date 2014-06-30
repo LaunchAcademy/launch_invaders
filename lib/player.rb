@@ -22,7 +22,7 @@ class Player
     Rect.new(pos, size)
   end
 
-  def move
+  def update(world)
     @pos = pos.add(vel)
   end
 

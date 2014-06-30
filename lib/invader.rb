@@ -7,6 +7,10 @@ class Invader
     @destroyed = false
   end
 
+  def update(world)
+    @pos = @pos.add(vel)
+  end
+
   def size
     Vec2D.new(20, 20)
   end
@@ -17,10 +21,6 @@ class Invader
 
   def vel
     Vec2D.new(0, 1)
-  end
-
-  def move
-    @pos = @pos.add(vel)
   end
 
   def destroy!

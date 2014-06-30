@@ -16,30 +16,21 @@ class World
   end
 
   def update
-    if invaders_remaining > 0
-      if spawn_delay <= 0
-        invader_type = [Invader].sample
-        invaders << invader_type.new(width)
-        @spawn_delay = rand(100)
-        @invaders_remaining -= 1
-      else
-        @spawn_delay -= 1
-      end
-    end
+    spawn_invaders()
 
     invaders.each do |invader|
-      invader.move
+      invader.update(self)
     end
 
     lasers.each do |laser|
-      laser.move
+      laser.update(self)
     end
 
-    player.move
+    player.update(self)
 
-    lasers.each do |laser|
-      invaders.each do |invader|
-        if laser.bounds.overlaps?(invader.bounds)
+    invaders.each do |invader|
+      lasers.each do |laser|
+        if !laser.destroyed? && laser.bounds.overlaps?(invader.bounds)
           laser.destroy!
           invader.destroy!
           break
@@ -62,4 +53,18 @@ class World
   def player_fire_laser
     lasers << player.fire_laser
   end
+
+  def spawn_invaders
+    if invaders_remaining > 0
+      if spawn_delay <= 0
+        invader_type = [SimpleInvader, AcceleratingInvader].sample
+        invaders << invader_type.new(width)
+        @spawn_delay = rand(100)
+        @invaders_remaining -= 1
+      else
+        @spawn_delay -= 1
+      end
+    end
+  end
+
 end

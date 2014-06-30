@@ -20,7 +20,7 @@ class Laser
     Vec2D.new(0, -5)
   end
 
-  def move
+  def update(world)
     @pos = @pos.add(vel)
   end
 
